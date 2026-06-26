@@ -1,0 +1,19 @@
+{
+    "name": "hilgertl/lh-plugin",
+    "description": "LH plugin",
+    "type": "project",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Lubos Hilgert",
+            "email": "lubos@hilgert.cz"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload":{
+        "psr-4":{"LHSeznamczAutocomplete\\" : "./src"},
+        "classmap": ["src/"]
+    }
+}
+

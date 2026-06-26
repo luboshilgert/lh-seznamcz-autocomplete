@@ -1,0 +1,10 @@
+.autoComplete_wrapper{
+    display: block;
+}
+.autoComplete_wrapper>input{
+    width: 100%;
+    font-size: 14px;
+}
+.autoComplete_wrapper>ul>li mark{
+    color: black;
+}
