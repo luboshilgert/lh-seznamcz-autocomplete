@@ -3,7 +3,7 @@ function setAutocomplete(street_id = '', city_id = '', postcode_id = '', country
     const cityElem = document.getElementById(city_id);
     const postcodeElem = document.getElementById(postcode_id);
     const countryElem = document.getElementById(country_id);
-    // Pole adresy na strance neni (napr. CF7 formular bez adresnich poli) - nic nedelej.
+    // Pole adresy na stránce není (např. CF7 formulář bez adresních polí) - nic neděláme.
     if (!inputElem) {
         return;
     }
@@ -16,12 +16,17 @@ function setAutocomplete(street_id = '', city_id = '', postcode_id = '', country
             src: async(query) => {
                 try {
                     const fetchData = await fetch(`https://api.mapy.cz/v1/suggest?lang=cs&limit=5&type=regional.address&locality=cz,sk&apikey=${scriptData.API_KEY}&query=${encodeURIComponent(query)}`);
+                    if (!fetchData.ok) {
+                        return [];
+                    }
                     const jsonData = await fetchData.json();
 
-                    return jsonData.items.map(item => ({
+                    return Array.isArray(jsonData.items)
+                        ? jsonData.items.map(item => ({
                             value: item.name,
                             data: item,
-                        }));
+                        }))
+                        : [];
                 } catch (exc) {
                     return [];
                 }
@@ -77,9 +82,13 @@ function setAutocomplete(street_id = '', city_id = '', postcode_id = '', country
         // data to debug
         var country = getCountryISO(origData.regionalStructure);
         inputElem.value = origData.name;
-        postcodeElem.value = origData.zip;
-        cityElem.value = origData.location.split(',')[0];
-        if(country && countryElem){
+        if (postcodeElem) {
+            postcodeElem.value = origData.zip;
+        }
+        if (cityElem && typeof origData.location === 'string') {
+            cityElem.value = origData.location.split(',')[0];
+        }
+        if (country && countryElem) {
             countryElem.value = country;
             countryElem.dispatchEvent(new Event('change'));
         }
@@ -89,6 +98,9 @@ function setAutocomplete(street_id = '', city_id = '', postcode_id = '', country
 }
 
 function getCountryISO(regionalStructure){
+    if (!Array.isArray(regionalStructure)) {
+        return null;
+    }
     for (const region of regionalStructure) {
         if (region.type === 'regional.country') {
             return region.isoCode; // Vrátit název municipality

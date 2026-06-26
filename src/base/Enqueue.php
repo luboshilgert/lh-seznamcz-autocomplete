@@ -21,6 +21,10 @@ class Enqueue extends BaseController {
      * Pro CF7 se zarazeni provede az pri renderu formulare (filter wpcf7_form_elements).
      */
     public function register_assets() {
+        if (empty($this->api_key)) {
+            return;
+        }
+
         wp_register_script('lh-seznam-autocomplete-js', $this->plugin_url . 'assets/autoComplete.min.js', [], LH_SEZNAM_VERSION, true);
         wp_register_style('lh-seznam-autocomplete-css', $this->plugin_url . 'assets/autoComplete.02.min.css', [], LH_SEZNAM_VERSION);
         wp_register_style('lh-seznam-autocomplete-custom-css', $this->plugin_url . 'assets/seznam_autocomplete.css', [], LH_SEZNAM_VERSION);
@@ -52,6 +56,9 @@ class Enqueue extends BaseController {
      * @return string
      */
     public function enqueue_for_cf7($html) {
+        if (empty($this->api_key)) {
+            return $html;
+        }
         $this->enqueue_core();
         wp_enqueue_script('lh-seznam-cf7');
         return $html;
