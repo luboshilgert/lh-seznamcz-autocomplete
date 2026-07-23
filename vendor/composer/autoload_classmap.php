@@ -11,7 +11,10 @@ return array(
     'LHSeznamczAutocomplete\\Base\\BaseController' => $baseDir . '/src/base/BaseController.php',
     'LHSeznamczAutocomplete\\Base\\Deactivate' => $baseDir . '/src/base/Deactivate.php',
     'LHSeznamczAutocomplete\\Base\\Enqueue' => $baseDir . '/src/base/Enqueue.php',
+    'LHSeznamczAutocomplete\\Base\\Settings' => $baseDir . '/src/base/Settings.php',
     'LHSeznamczAutocomplete\\Base\\SettingsLink' => $baseDir . '/src/base/SettingsLink.php',
+    'LHSeznamczAutocomplete\\Base\\Updater' => $baseDir . '/src/base/Updater.php',
     'LHSeznamczAutocomplete\\Init' => $baseDir . '/src/Init.php',
     'LHSeznamczAutocomplete\\Pages\\Admin' => $baseDir . '/src/pages/Admin.php',
+    'LHSeznamczAutocomplete\\Pages\\Cf7Panel' => $baseDir . '/src/pages/Cf7Panel.php',
 );

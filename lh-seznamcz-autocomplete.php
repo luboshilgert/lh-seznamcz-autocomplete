@@ -16,7 +16,7 @@
  * Plugin Name:       LH Seznam.cz autocomplete
  * Plugin URI:        https://www.hilgert.cz/
  * Description:       LH Seznam.cz autocomplete
- * Version:           1.0.1
+ * Version:           1.1.0
  * Author:            Lubos Hilgert
  * Author URI:        https://www.hilgert.cz/
  * License:           GPL-2.0+
@@ -29,8 +29,11 @@ if (!defined('WPINC')) {
     die;
 }
 
-define('LH_SEZNAM_VERSION', '1.0.1');
+define('LH_SEZNAM_VERSION', '1.1.0');
+define('LH_SEZNAM_PLUGIN_FILE', __FILE__);
 define('LH_SEZNAM_OPTION_API_KEY', 'lh_seznamcz_api_key');
+define('LH_SEZNAM_OPTION_SETTINGS', 'lh_seznamcz_settings');
+define('LH_SEZNAM_CF7_META', '_lh_seznamcz_cf7');
 
 add_action('init', function () {
     load_plugin_textdomain('lh-seznamcz-autocomplete', false, dirname(plugin_basename(__FILE__)) . '/languages');
@@ -51,5 +54,7 @@ function deactivate_lh_seznamcz_autocomplete(){
 register_deactivation_hook(__FILE__, 'deactivate_lh_seznamcz_autocomplete');
 
 if(class_exists('LHSeznamczAutocomplete\\Init')){
-    \LHSeznamczAutocomplete\Init::register_services();
+    // Az na plugins_loaded - Init::get_services() se rozhoduje podle toho,
+    // jestli je aktivni Contact Form 7, a to je driv nespolehlive.
+    add_action('plugins_loaded', array('LHSeznamczAutocomplete\\Init', 'register_services'));
 }

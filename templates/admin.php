@@ -9,3 +9,26 @@
         ?>
     </form>
 </div>
+<script>
+(function () {
+    var toggle = document.getElementById('lh-seznam-enable_cf7');
+    var intro = document.querySelector('.lh-seznam-cf7-section-intro');
+    if (!toggle || !intro) {
+        return;
+    }
+    // do_settings_sections() renderuje sekci jako <h2> + vystup callbacku + <table>.
+    var parts = [intro, intro.previousElementSibling, intro.nextElementSibling].filter(Boolean);
+
+    function sync() {
+        parts.forEach(function (elem) {
+            // Pole zamerne nedisablujeme - disablovana se neodeslou a ulozene
+            // mapovani by se pri ulozeni ztratilo. Staci je vizualne odstavit.
+            elem.style.opacity = toggle.checked ? '' : '0.5';
+            elem.style.pointerEvents = toggle.checked ? '' : 'none';
+        });
+    }
+
+    toggle.addEventListener('change', sync);
+    sync();
+})();
+</script>

@@ -12,12 +12,20 @@ final class Init {
      * Seznam vsech trid
      * @return type
      */
-    public static function get_services(){   
-        return [
+    public static function get_services(){
+        $services = [
         Pages\Admin::class,
         Base\Enqueue::class,
-        Base\SettingsLink::class
+        Base\SettingsLink::class,
+        Base\Updater::class
         ];
+
+        // Panel v editoru formulare ma smysl jen s aktivnim Contact Form 7.
+        if (defined('WPCF7_VERSION')) {
+            $services[] = Pages\Cf7Panel::class;
+        }
+
+        return $services;
     }
 /**
  * Loop skrze classy a inicializace

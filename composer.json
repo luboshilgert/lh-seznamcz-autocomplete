@@ -1,8 +1,8 @@
 {
-    "name": "hilgertl/lh-plugin",
-    "description": "LH plugin",
-    "type": "project",
-    "license": "GPL",
+    "name": "hilgertl/lh-seznamcz-autocomplete",
+    "description": "WordPress plugin - naseptavac adres z Mapy.cz pro WooCommerce a Contact Form 7",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
     "authors": [
         {
             "name": "Lubos Hilgert",
@@ -10,10 +10,12 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {},
+    "require": {
+        "php": ">=7.4",
+        "yahnis-elsts/plugin-update-checker": "^5.7"
+    },
     "autoload":{
         "psr-4":{"LHSeznamczAutocomplete\\" : "./src"},
         "classmap": ["src/"]
     }
 }
-

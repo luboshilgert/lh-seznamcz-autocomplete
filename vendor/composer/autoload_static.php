@@ -6,6 +6,10 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitd985fe98b648cd5459e38b2af9ad0165
 {
+    public static $files = array (
+        'bc0af1337b39f0d750e835f5263eb646' => __DIR__ . '/..' . '/yahnis-elsts/plugin-update-checker/load-v5p7.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'L' =>
         array (
@@ -26,9 +30,12 @@ class ComposerStaticInitd985fe98b648cd5459e38b2af9ad0165
         'LHSeznamczAutocomplete\\Base\\BaseController' => __DIR__ . '/../..' . '/src/base/BaseController.php',
         'LHSeznamczAutocomplete\\Base\\Deactivate' => __DIR__ . '/../..' . '/src/base/Deactivate.php',
         'LHSeznamczAutocomplete\\Base\\Enqueue' => __DIR__ . '/../..' . '/src/base/Enqueue.php',
+        'LHSeznamczAutocomplete\\Base\\Settings' => __DIR__ . '/../..' . '/src/base/Settings.php',
         'LHSeznamczAutocomplete\\Base\\SettingsLink' => __DIR__ . '/../..' . '/src/base/SettingsLink.php',
+        'LHSeznamczAutocomplete\\Base\\Updater' => __DIR__ . '/../..' . '/src/base/Updater.php',
         'LHSeznamczAutocomplete\\Init' => __DIR__ . '/../..' . '/src/Init.php',
         'LHSeznamczAutocomplete\\Pages\\Admin' => __DIR__ . '/../..' . '/src/pages/Admin.php',
+        'LHSeznamczAutocomplete\\Pages\\Cf7Panel' => __DIR__ . '/../..' . '/src/pages/Cf7Panel.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
