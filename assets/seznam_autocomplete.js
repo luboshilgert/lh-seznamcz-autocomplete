@@ -79,22 +79,87 @@ function setAutocomplete(street_id = '', city_id = '', postcode_id = '', country
     inputElem.addEventListener("selection", event => {
         // "event.detail" carries the autoComplete.js "feedback" object
         const origData = event.detail.selection.value.data;
-        // data to debug
-        var country = getCountryISO(origData.regionalStructure);
-        inputElem.value = origData.name;
-        if (postcodeElem) {
-            postcodeElem.value = origData.zip;
+        const country = getCountryISO(origData.regionalStructure);
+        const street = origData.name;
+        // Mapy.cz umi vratit PSC s nedelitelnou mezerou (nbsp) - sjednotit whitespace
+        // na obycejnou mezeru, aby doslo k matchi shipping zony (wc_normalize_postcode).
+        const postcode = (origData.zip != null) ? String(origData.zip).replace(/[\s ]+/g, ' ').trim() : origData.zip;
+        const city = (typeof origData.location === 'string') ? origData.location.split(',')[0] : null;
+
+        // Na street poli nechceme bublajici "input" - vlastni autoComplete instance
+        // na nem posloucha "input" a znovu by spustila vyhledavani/otevrela napovedu.
+        setFieldValue(inputElem, street, { fireInput: false });
+        setFieldValue(postcodeElem, postcode);
+        if (city !== null) {
+            setFieldValue(cityElem, city);
         }
-        if (cityElem && typeof origData.location === 'string') {
-            cityElem.value = origData.location.split(',')[0];
-        }
-        if (country && countryElem) {
-            countryElem.value = country;
-            countryElem.dispatchEvent(new Event('change'));
+        if (country && canSetCountryValue(countryElem, country)) {
+            setFieldValue(countryElem, country);
         }
 
-
+        // Oznamit dokoncene vyplneni adresy - kontextovy skript (Woo/CF7) si na to
+        // muze navazat vlastni logiku (napr. vynuceny prepocet dopravy na pokladne).
+        inputElem.dispatchEvent(new CustomEvent('lh-address-autocomplete:selected', {
+            bubbles: true,
+            detail: {
+                street: street,
+                city: city,
+                postcode: postcode,
+                country: country,
+                fields: {
+                    street: inputElem,
+                    city: cityElem,
+                    postcode: postcodeElem,
+                    country: countryElem,
+                },
+            },
+        }));
     });
+}
+
+/**
+ * Nastavi hodnotu pole a bublajicimi eventy o tom da vedet okolnimu JS
+ * (delegovane handlery WooCommerce checkoutu, CF7 apod.). Event vystreli jen
+ * pokud pole existuje, hodnota neni null/undefined/prazdny retezec a opravdu
+ * se zmenila.
+ *
+ * @param {HTMLElement|null} fieldElem Cilove pole.
+ * @param {string} value Nova hodnota.
+ * @param {Object} [options] Volitelne nastaveni.
+ * @param {boolean} [options.fireInput=true] Zda vystrelit i bublajici "input" event.
+ */
+function setFieldValue(fieldElem, value, options) {
+    if (!fieldElem || value === null || value === undefined || value === '' || fieldElem.value === value) {
+        return;
+    }
+    const fireInput = !options || options.fireInput !== false;
+    fieldElem.value = value;
+    if (fireInput) {
+        fieldElem.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    fieldElem.dispatchEvent(new Event('change', { bubbles: true }));
+}
+
+/**
+ * Overi, ze pole umi prijmout danou hodnotu zeme. U <select> musi existovat
+ * odpovidajici <option>. Hidden/text pole (napr. kdyz je povolena jen jedna
+ * prodejni zeme a WooCommerce vyrenderuje country_to_state jako hidden input)
+ * tise neprepisujeme, aby nedoslo k nesouladu mezi UI a odeslanymi daty.
+ *
+ * @param {HTMLElement|null} fieldElem Pole zeme.
+ * @param {string} value ISO kod zeme.
+ * @return {boolean}
+ */
+function canSetCountryValue(fieldElem, value) {
+    if (!fieldElem || fieldElem.tagName !== 'SELECT') {
+        return false;
+    }
+    for (const option of fieldElem.options) {
+        if (option.value === value) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function getCountryISO(regionalStructure){

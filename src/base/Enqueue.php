@@ -39,7 +39,7 @@ class Enqueue extends BaseController {
             ),
         ));
 
-        wp_register_script('lh-seznam-woocommerce', $this->plugin_url . 'assets/seznam_woocommerce.js', array('lh-seznam-autocomplete'), LH_SEZNAM_VERSION, true);
+        wp_register_script('lh-seznam-woocommerce', $this->plugin_url . 'assets/seznam_woocommerce.js', array('lh-seznam-autocomplete', 'jquery'), LH_SEZNAM_VERSION, true);
         wp_register_script('lh-seznam-cf7', $this->plugin_url . 'assets/seznam_cf7.js', array('lh-seznam-autocomplete'), LH_SEZNAM_VERSION, true);
 
         if (function_exists('is_checkout') && is_checkout()) {

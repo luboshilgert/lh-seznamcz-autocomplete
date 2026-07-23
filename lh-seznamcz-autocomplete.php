@@ -16,7 +16,7 @@
  * Plugin Name:       LH Seznam.cz autocomplete
  * Plugin URI:        https://www.hilgert.cz/
  * Description:       LH Seznam.cz autocomplete
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Lubos Hilgert
  * Author URI:        https://www.hilgert.cz/
  * License:           GPL-2.0+
@@ -29,7 +29,7 @@ if (!defined('WPINC')) {
     die;
 }
 
-define('LH_SEZNAM_VERSION', '1.0.0');
+define('LH_SEZNAM_VERSION', '1.0.1');
 define('LH_SEZNAM_OPTION_API_KEY', 'lh_seznamcz_api_key');
 
 add_action('init', function () {
