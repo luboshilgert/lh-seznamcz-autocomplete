@@ -32,8 +32,10 @@ class Enqueue extends BaseController {
 
         wp_register_script('lh-seznam-autocomplete', $this->plugin_url . 'assets/seznam_autocomplete.js', array('lh-seznam-autocomplete-js'), LH_SEZNAM_VERSION, true);
         wp_localize_script('lh-seznam-autocomplete', 'scriptData', array(
-            'API_KEY' => $this->api_key,
-            'i18n'    => array(
+            'API_KEY'    => $this->api_key,
+            // Comma-separated ISO kody pro parametr "locality" suggest API.
+            'localities' => implode(',', Settings::get_localities()),
+            'i18n'       => array(
                 'placeholder' => __('Zadejte adresu...', 'lh-seznamcz-autocomplete'),
                 'noResults'   => __('Žádné výsledky pro', 'lh-seznamcz-autocomplete'),
                 'poweredBy'   => __('Powered by', 'lh-seznamcz-autocomplete'),

@@ -47,7 +47,14 @@
                 keys: ["value"],
                 src: async(query) => {
                     try {
-                        const fetchData = await fetch(`https://api.mapy.cz/v1/suggest?lang=cs&limit=5&type=regional.address&locality=cz,sk&apikey=${scriptData.API_KEY}&query=${encodeURIComponent(query)}`);
+                        // Zeme jdou z nastaveni pluginu (scriptData.localities). Prazdna
+                        // hodnota = bez omezeni, hleda se ve vsech zemich, ktere Mapy.cz maji.
+                        const localities = (scriptData && typeof scriptData.localities === 'string') ? scriptData.localities : 'cz,sk';
+                        let url = `https://api.mapy.cz/v1/suggest?lang=cs&limit=5&type=regional.address&apikey=${scriptData.API_KEY}&query=${encodeURIComponent(query)}`;
+                        if (localities) {
+                            url += `&locality=${encodeURIComponent(localities)}`;
+                        }
+                        const fetchData = await fetch(url);
                         if (!fetchData.ok) {
                             return [];
                         }

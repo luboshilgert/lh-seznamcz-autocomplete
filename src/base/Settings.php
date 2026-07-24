@@ -18,6 +18,19 @@ class Settings {
     const FIELD_KEYS = ['street', 'city', 'postcode', 'country'];
 
     /**
+     * Zeme, ze kterych Mapy.cz suggest umi vracet adresy (ISO kod => cesky nazev).
+     * Overeno proti api.mapy.cz - vsechny vraci adresni vysledky.
+     */
+    const SUPPORTED_LOCALITIES = [
+        'cz' => 'Česko',
+        'sk' => 'Slovensko',
+        'pl' => 'Polsko',
+        'de' => 'Německo',
+        'at' => 'Rakousko',
+        'hu' => 'Maďarsko',
+    ];
+
+    /**
      * Vychozi hodnoty. Obe integrace jsou zapnute kvuli zpetne kompatibilite -
      * instalace, ktere plugin meli pred 1.1.0, se po updatu chovaji stejne.
      *
@@ -27,6 +40,8 @@ class Settings {
         return [
             'enable_woo' => true,
             'enable_cf7' => true,
+            // Vychozi CZ + SK - stejne jako pevne dratovane chovani do 1.1.0.
+            'localities' => ['cz', 'sk'],
             'cf7_fields' => [
                 'street'   => 'your-street',
                 'city'     => 'your-city',
@@ -56,8 +71,41 @@ class Settings {
             $defaults['cf7_fields'],
             is_array($settings['cf7_fields'] ?? null) ? $settings['cf7_fields'] : []
         );
+        // Klic 'localities' chybi u instalaci z doby pred touto volbou - array_merge
+        // jim doplni default CZ+SK, takze se chovaji jako drive.
+        $settings['localities'] = self::clean_localities($settings['localities'] ?? null);
 
         return $settings;
+    }
+
+    /**
+     * Vycisti seznam zemi - jen podporovane ISO kody, malymi pismeny, bez duplicit.
+     *
+     * @param mixed $value Vstup (pole kodu).
+     * @return string[]
+     */
+    private static function clean_localities($value) {
+        if (!is_array($value)) {
+            return [];
+        }
+        $out = [];
+        foreach ($value as $code) {
+            $code = strtolower(sanitize_text_field($code));
+            if (isset(self::SUPPORTED_LOCALITIES[$code]) && !in_array($code, $out, true)) {
+                $out[] = $code;
+            }
+        }
+        return $out;
+    }
+
+    /**
+     * Zeme, ze kterych se naseptava.
+     *
+     * @return string[] ISO kody malymi pismeny (napr. ['cz', 'sk']).
+     */
+    public static function get_localities() {
+        $settings = self::get();
+        return $settings['localities'];
     }
 
     /**
@@ -140,6 +188,8 @@ class Settings {
         $clean = [
             'enable_woo' => !empty($input['enable_woo']),
             'enable_cf7' => !empty($input['enable_cf7']),
+            // Prazdny vyber (vsechna zaskrtavatka pryc) = zadne omezeni zeme.
+            'localities' => self::clean_localities($input['localities'] ?? null),
             'cf7_fields' => [],
         ];
 

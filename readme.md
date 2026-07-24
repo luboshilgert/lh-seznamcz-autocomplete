@@ -33,9 +33,16 @@ složka `vendor/` je součástí repa, takže není potřeba spouštět Composer
 | API klíč Mapy.cz | Klíč pro suggest API. Bez něj se plugin nikde nenačte. |
 | WooCommerce | Zapne našeptávač na pokladně (obě varianty). |
 | Contact Form 7 | Zapne našeptávač ve formulářích CF7. |
+| Země pro našeptávání | Ze kterých států se adresy nabízejí (zaškrtávátka). |
 | Výchozí pole pro CF7 | Názvy (`name`) polí z CF7 tagů - ulice, město, PSČ, země. |
 
 Skripty pluginu se načtou jen tam, kde je našeptávač zapnutý.
+
+### Země pro našeptávání
+
+Mapy.cz mají adresní data pro Česko, Slovensko, Polsko, Německo, Rakousko
+a Maďarsko. Ve výchozím stavu se našeptává z **Česka a Slovenska**. Když
+nezaškrtnete žádnou zemi, hledá se ve všech podporovaných.
 
 ### Pole u Contact Form 7
 
@@ -48,7 +55,7 @@ Pro jednotlivý formulář jde mapování přepsat přímo v jeho editoru na zá
 volby *Globální default* a *— nepoužívat —*. Našeptávač se tu dá také zapnout
 nebo vypnout nezávisle na globálním nastavení.
 
-### Země
+### Vyplňování pole země
 
 Země se vyplňuje jen do `<select>`, který danou zemi v nabídce má - to platí
 pro klasickou pokladnu i pro CF7. V blokové pokladně se adresa zapisuje do
@@ -60,26 +67,6 @@ Plugin není na wordpress.org. Nové verze se hlásí přes
 [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker),
 který čte GitHub Releases tohoto repozitáře. Aktualizace se pak nabízí
 standardně v Nástěnka → Aktualizace.
-
-Vydání nové verze: bumpnout `Version:` v hlavičce pluginu i `LH_SEZNAM_VERSION`,
-commitnout a otagovat (`v1.1.0`). GitHub Actions workflow sestaví ZIP a připojí
-ho k releasu.
-
-## Pro vývojáře
-
-Jádro vystavuje `window.LHSeznamAutocomplete`:
-
-```js
-LHSeznamAutocomplete.attach(inputElem, address => { /* {street, city, postcode, country, raw} */ });
-LHSeznamAutocomplete.fillFields(address, { street, city, postcode, country });
-LHSeznamAutocomplete.resolveField(formElem, 'your-street');
-```
-
-Po vyplnění polí se na poli ulice vystřelí bublající událost
-`lh-address-autocomplete:selected` s adresou a odkazy na pole v `detail`.
-
-Zachována je i původní globální funkce
-`setAutocomplete(streetId, cityId, postcodeId, countryId)`.
 
 ## Licence
 

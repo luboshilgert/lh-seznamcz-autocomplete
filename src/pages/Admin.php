@@ -81,6 +81,21 @@ class Admin extends BaseController {
         );
 
         add_settings_section(
+            'lh_seznamcz_localities',
+            __('Země pro našeptávání', 'lh-seznamcz-autocomplete'),
+            array($this, 'render_localities_section'),
+            'lh_seznamcz_autocomplete'
+        );
+
+        add_settings_field(
+            'lh_seznamcz_localities_field',
+            __('Země', 'lh-seznamcz-autocomplete'),
+            array($this, 'render_localities_field'),
+            'lh_seznamcz_autocomplete',
+            'lh_seznamcz_localities'
+        );
+
+        add_settings_section(
             'lh_seznamcz_cf7',
             __('Výchozí pole pro Contact Form 7', 'lh-seznamcz-autocomplete'),
             array($this, 'render_cf7_section'),
@@ -138,6 +153,26 @@ class Admin extends BaseController {
             __('Našeptávat adresu ve formulářích Contact Form 7.', 'lh-seznamcz-autocomplete'),
             defined('WPCF7_VERSION') ? '' : __('Contact Form 7 není aktivní - volba se projeví, až plugin aktivujete.', 'lh-seznamcz-autocomplete')
         );
+    }
+
+    public function render_localities_section() {
+        echo '<p>' . esc_html__('Vyberte země, ze kterých se mají adresy našeptávat. Mapy.cz mají adresní data jen pro tyto státy. Když nevyberete žádný, hledá se ve všech.', 'lh-seznamcz-autocomplete') . '</p>';
+    }
+
+    public function render_localities_field() {
+        $selected = Settings::get_localities();
+
+        echo '<fieldset>';
+        foreach (Settings::SUPPORTED_LOCALITIES as $code => $label) {
+            printf(
+                '<label style="display:inline-block; min-width:9em; margin:0 1em .4em 0;"><input type="checkbox" name="%1$s[localities][]" value="%2$s" %3$s /> %4$s</label>',
+                esc_attr(LH_SEZNAM_OPTION_SETTINGS),
+                esc_attr($code),
+                checked(in_array($code, $selected, true), true, false),
+                esc_html($label)
+            );
+        }
+        echo '</fieldset>';
     }
 
     public function render_cf7_section() {
