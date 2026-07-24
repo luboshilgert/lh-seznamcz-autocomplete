@@ -10,13 +10,13 @@
  *
  * @link              https://www.hilgert.cz/
  * @since             1.0.0
- * @package           LH Seznam.cz autocomplete
+ * @package           Adresní našeptávač Mapy.com
  *
  * @wordpress-plugin
- * Plugin Name:       LH Seznam.cz autocomplete
+ * Plugin Name:       Adresní našeptávač Mapy.com
  * Plugin URI:        https://www.hilgert.cz/
- * Description:       LH Seznam.cz autocomplete
- * Version:           1.3.2
+ * Description:       Našeptávač adres z Mapy.com (suggest API) pro WooCommerce a Contact Form 7.
+ * Version:           1.3.3
  * Author:            Lubos Hilgert
  * Author URI:        https://www.hilgert.cz/
  * License:           GPL-2.0+
@@ -29,7 +29,7 @@ if (!defined('WPINC')) {
     die;
 }
 
-define('LH_SEZNAM_VERSION', '1.3.2');
+define('LH_SEZNAM_VERSION', '1.3.3');
 define('LH_SEZNAM_PLUGIN_FILE', __FILE__);
 define('LH_SEZNAM_OPTION_API_KEY', 'lh_seznamcz_api_key');
 define('LH_SEZNAM_OPTION_SETTINGS', 'lh_seznamcz_settings');

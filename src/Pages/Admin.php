@@ -14,8 +14,8 @@ class Admin extends BaseController {
 
     public function add_settings_page() {
         add_options_page(
-            __('LH Seznam.cz autocomplete', 'lh-seznamcz-autocomplete'),
-            __('LH Seznam.cz autocomplete', 'lh-seznamcz-autocomplete'),
+            __('Adresní našeptávač Mapy.com', 'lh-seznamcz-autocomplete'),
+            __('Adresní našeptávač Mapy.com', 'lh-seznamcz-autocomplete'),
             'manage_options',
             'lh_seznamcz_autocomplete',
             array($this, 'render_settings_page')

@@ -1,4 +1,4 @@
-# LH Seznam.cz autocomplete
+# Adresní našeptávač Mapy.com
 
 WordPress plugin, který do adresních polí doplní našeptávač adres z Mapy.cz
 (Seznam.cz suggest API). Po výběru z nabídky se kromě ulice předvyplní i město,
@@ -19,14 +19,14 @@ Podporuje:
 
 1. Stáhněte ZIP z [posledního vydání](https://github.com/luboshilgert/lh-seznamcz-autocomplete/releases/latest).
 2. Nahrajte přes Pluginy → Přidat plugin → Nahrát plugin a aktivujte.
-3. V Nastavení → LH Seznam.cz autocomplete vyplňte API klíč.
+3. V Nastavení → Adresní našeptávač Mapy.com vyplňte API klíč.
 
 Plugin lze nainstalovat i přímým klonem repozitáře do `wp-content/plugins/` -
 složka `vendor/` je součástí repa, takže není potřeba spouštět Composer.
 
 ## Nastavení
 
-**Nastavení → LH Seznam.cz autocomplete**
+**Nastavení → Adresní našeptávač Mapy.com**
 
 | Volba | Význam |
 | --- | --- |
