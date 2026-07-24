@@ -128,7 +128,7 @@ class Admin extends BaseController {
     public function render_api_key_field() {
         $value = esc_attr(get_option(LH_SEZNAM_OPTION_API_KEY, ''));
         echo '<input type="text" name="' . esc_attr(LH_SEZNAM_OPTION_API_KEY) . '" value="' . $value . '" class="regular-text" />';
-        echo '<p class="description">' . esc_html__('API klíč získáte na https://developer.mapy.cz/', 'lh-seznamcz-autocomplete') . '</p>';
+        echo '<p class="description">' . esc_html__('API klíč získáte na https://developer.mapy.com/. Doporučujeme ho tam omezit na doménu webu (referrer) nebo IP - v prohlížeči je klíč viditelný.', 'lh-seznamcz-autocomplete') . '</p>';
     }
 
     public function render_sources_section() {

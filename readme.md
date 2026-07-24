@@ -13,7 +13,7 @@ Podporuje:
 ## Požadavky
 
 - WordPress 6.0+, PHP 7.4+
-- API klíč z [developer.mapy.cz](https://developer.mapy.cz/) (bezplatný tarif stačí)
+- API klíč z [developer.mapy.com](https://developer.mapy.com/) (bezplatný tarif stačí)
 
 ## Instalace
 
@@ -57,9 +57,26 @@ nebo vypnout nezávisle na globálním nastavení.
 
 ### Vyplňování pole země
 
-Země se vyplňuje jen do `<select>`, který danou zemi v nabídce má - to platí
-pro klasickou pokladnu i pro CF7. V blokové pokladně se adresa zapisuje do
-datového storu WooCommerce (`wc/store/cart`), takže se rovnou přepočte i doprava.
+Do pole země se zapisuje:
+
+- u `<select>` (typicky pokladna) ISO kód, který je hodnotou `<option>` - např. `CZ`,
+- u obyčejného textového pole čitelný název země - např. `Česko`,
+- skrytá pole se nechávají být (aby nevznikl nesoulad mezi UI a odeslanými daty).
+
+V blokové pokladně se adresa zapisuje do datového storu WooCommerce
+(`wc/store/cart`), takže se rovnou přepočte i doprava.
+
+## Zabezpečení API klíče
+
+API klíč Mapy.cz se používá přímo v prohlížeči, takže je v HTML stránky viditelný -
+to tak Mapy.cz mají navržené. Aby ho nemohl někdo zneužít na jiném webu, **omezte
+ho** ve svém účtu na [developer.mapy.com](https://developer.mapy.com/):
+
+- podle **referreru** (HTTP referer) na doménu vašeho webu, nebo
+- podle **IP adresy** serveru,
+
+případně nastavte denní limit požadavků. Bez omezení může klíč použít kdokoli,
+kdo ho ze stránky opíše, a vyčerpat vám kredit.
 
 ## Aktualizace
 

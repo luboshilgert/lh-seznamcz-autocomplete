@@ -127,7 +127,9 @@
                 // na obycejnou mezeru, aby doslo k matchi shipping zony (wc_normalize_postcode).
                 postcode: (origData.zip != null) ? String(origData.zip).replace(/[\s ]+/g, ' ').trim() : origData.zip,
                 city: (typeof origData.location === 'string') ? origData.location.split(',')[0] : null,
+                // API vraci u zeme oboji - ISO kod (do <select>) i citelny nazev (do textu).
                 country: getCountryISO(origData.regionalStructure),
+                countryName: getCountryName(origData.regionalStructure),
                 raw: origData,
             });
         });
@@ -151,9 +153,7 @@
         if (address.city !== null && address.city !== undefined) {
             setFieldValue(fields.city, address.city);
         }
-        if (address.country && canSetCountryValue(fields.country, address.country)) {
-            setFieldValue(fields.country, address.country);
-        }
+        fillCountry(fields.country, address);
 
         // Oznamit dokoncene vyplneni adresy - kontextovy skript (Woo/CF7) si na to
         // muze navazat vlastni logiku (napr. vynuceny prepocet dopravy na pokladne).
@@ -165,6 +165,7 @@
                 city: address.city,
                 postcode: address.postcode,
                 country: address.country,
+                countryName: address.countryName,
                 fields: {
                     street: fields.street || null,
                     city: fields.city || null,
@@ -223,10 +224,37 @@
     }
 
     /**
-     * Overi, ze pole umi prijmout danou hodnotu zeme. U <select> musi existovat
-     * odpovidajici <option>. Hidden/text pole (napr. kdyz je povolena jen jedna
-     * prodejni zeme a WooCommerce vyrenderuje country_to_state jako hidden input)
-     * tise neprepisujeme, aby nedoslo k nesouladu mezi UI a odeslanymi daty.
+     * Vyplni pole zeme podle jeho typu:
+     *  - <select>: ISO kod, ktery je hodnotou <option> (napr. "CZ"),
+     *  - viditelny text/textarea: citelny nazev zeme (napr. "Česko"),
+     *  - hidden pole: nechame byt - napr. kdyz je povolena jen jedna prodejni zeme,
+     *    WooCommerce zemi vyrenderuje jako hidden input a prepisem bychom rozbili
+     *    soulad mezi UI a odeslanymi daty.
+     *
+     * @param {HTMLElement|null} fieldElem Pole zeme.
+     * @param {Object} address Adresa - {country: ISO, countryName: nazev}.
+     */
+    function fillCountry(fieldElem, address) {
+        if (!fieldElem) {
+            return;
+        }
+        if (fieldElem.tagName === 'SELECT') {
+            if (address.country && canSetCountryValue(fieldElem, address.country)) {
+                setFieldValue(fieldElem, address.country);
+            }
+            return;
+        }
+        // Textova a jina pole - skryta vynechavame.
+        if (fieldElem.type === 'hidden') {
+            return;
+        }
+        if (address.countryName) {
+            setFieldValue(fieldElem, address.countryName);
+        }
+    }
+
+    /**
+     * Overi, ze <select> ma <option> s danou hodnotou zeme.
      *
      * @param {HTMLElement|null} fieldElem Pole zeme.
      * @param {string} value ISO kod zeme.
@@ -249,12 +277,31 @@
      * @return {string|null} ISO kod zeme.
      */
     function getCountryISO(regionalStructure) {
+        return getCountryField(regionalStructure, 'isoCode');
+    }
+
+    /**
+     * @param {Array} regionalStructure Struktura z odpovedi Mapy.cz.
+     * @return {string|null} Citelny nazev zeme (napr. "Česko").
+     */
+    function getCountryName(regionalStructure) {
+        return getCountryField(regionalStructure, 'name');
+    }
+
+    /**
+     * Vytahne polozku zeme (regional.country) z regionalStructure.
+     *
+     * @param {Array} regionalStructure Struktura z odpovedi Mapy.cz.
+     * @param {string} key Klic, ktery chceme (isoCode / name).
+     * @return {string|null}
+     */
+    function getCountryField(regionalStructure, key) {
         if (!Array.isArray(regionalStructure)) {
             return null;
         }
         for (const region of regionalStructure) {
             if (region.type === 'regional.country') {
-                return region.isoCode;
+                return region[key] != null ? region[key] : null;
             }
         }
         return null;
@@ -267,6 +314,7 @@
         setFieldValue: setFieldValue,
         canSetCountryValue: canSetCountryValue,
         getCountryISO: getCountryISO,
+        getCountryName: getCountryName,
     };
 
     /**
