@@ -31,7 +31,7 @@ class Enqueue extends BaseController {
         wp_register_style('lh-seznam-autocomplete-custom-css', $this->plugin_url . 'assets/seznam_autocomplete.css', [], LH_SEZNAM_VERSION);
 
         wp_register_script('lh-seznam-autocomplete', $this->plugin_url . 'assets/seznam_autocomplete.js', array('lh-seznam-autocomplete-js'), LH_SEZNAM_VERSION, true);
-        wp_localize_script('lh-seznam-autocomplete', 'scriptData', array(
+        wp_localize_script('lh-seznam-autocomplete', 'lhSeznamData', array(
             'API_KEY'    => $this->api_key,
             // Comma-separated ISO kody pro parametr "locality" suggest API.
             'localities' => implode(',', Settings::get_localities()),

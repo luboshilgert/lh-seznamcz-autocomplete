@@ -7,14 +7,14 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'LHSeznamczAutocomplete\\Base\\Activate' => $baseDir . '/src/base/Activate.php',
-    'LHSeznamczAutocomplete\\Base\\BaseController' => $baseDir . '/src/base/BaseController.php',
-    'LHSeznamczAutocomplete\\Base\\Deactivate' => $baseDir . '/src/base/Deactivate.php',
-    'LHSeznamczAutocomplete\\Base\\Enqueue' => $baseDir . '/src/base/Enqueue.php',
-    'LHSeznamczAutocomplete\\Base\\Settings' => $baseDir . '/src/base/Settings.php',
-    'LHSeznamczAutocomplete\\Base\\SettingsLink' => $baseDir . '/src/base/SettingsLink.php',
-    'LHSeznamczAutocomplete\\Base\\Updater' => $baseDir . '/src/base/Updater.php',
+    'LHSeznamczAutocomplete\\Base\\Activate' => $baseDir . '/src/Base/Activate.php',
+    'LHSeznamczAutocomplete\\Base\\BaseController' => $baseDir . '/src/Base/BaseController.php',
+    'LHSeznamczAutocomplete\\Base\\Deactivate' => $baseDir . '/src/Base/Deactivate.php',
+    'LHSeznamczAutocomplete\\Base\\Enqueue' => $baseDir . '/src/Base/Enqueue.php',
+    'LHSeznamczAutocomplete\\Base\\Settings' => $baseDir . '/src/Base/Settings.php',
+    'LHSeznamczAutocomplete\\Base\\SettingsLink' => $baseDir . '/src/Base/SettingsLink.php',
+    'LHSeznamczAutocomplete\\Base\\Updater' => $baseDir . '/src/Base/Updater.php',
     'LHSeznamczAutocomplete\\Init' => $baseDir . '/src/Init.php',
-    'LHSeznamczAutocomplete\\Pages\\Admin' => $baseDir . '/src/pages/Admin.php',
-    'LHSeznamczAutocomplete\\Pages\\Cf7Panel' => $baseDir . '/src/pages/Cf7Panel.php',
+    'LHSeznamczAutocomplete\\Pages\\Admin' => $baseDir . '/src/Pages/Admin.php',
+    'LHSeznamczAutocomplete\\Pages\\Cf7Panel' => $baseDir . '/src/Pages/Cf7Panel.php',
 );

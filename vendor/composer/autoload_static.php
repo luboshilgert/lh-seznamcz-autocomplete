@@ -26,16 +26,16 @@ class ComposerStaticInitd985fe98b648cd5459e38b2af9ad0165
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'LHSeznamczAutocomplete\\Base\\Activate' => __DIR__ . '/../..' . '/src/base/Activate.php',
-        'LHSeznamczAutocomplete\\Base\\BaseController' => __DIR__ . '/../..' . '/src/base/BaseController.php',
-        'LHSeznamczAutocomplete\\Base\\Deactivate' => __DIR__ . '/../..' . '/src/base/Deactivate.php',
-        'LHSeznamczAutocomplete\\Base\\Enqueue' => __DIR__ . '/../..' . '/src/base/Enqueue.php',
-        'LHSeznamczAutocomplete\\Base\\Settings' => __DIR__ . '/../..' . '/src/base/Settings.php',
-        'LHSeznamczAutocomplete\\Base\\SettingsLink' => __DIR__ . '/../..' . '/src/base/SettingsLink.php',
-        'LHSeznamczAutocomplete\\Base\\Updater' => __DIR__ . '/../..' . '/src/base/Updater.php',
+        'LHSeznamczAutocomplete\\Base\\Activate' => __DIR__ . '/../..' . '/src/Base/Activate.php',
+        'LHSeznamczAutocomplete\\Base\\BaseController' => __DIR__ . '/../..' . '/src/Base/BaseController.php',
+        'LHSeznamczAutocomplete\\Base\\Deactivate' => __DIR__ . '/../..' . '/src/Base/Deactivate.php',
+        'LHSeznamczAutocomplete\\Base\\Enqueue' => __DIR__ . '/../..' . '/src/Base/Enqueue.php',
+        'LHSeznamczAutocomplete\\Base\\Settings' => __DIR__ . '/../..' . '/src/Base/Settings.php',
+        'LHSeznamczAutocomplete\\Base\\SettingsLink' => __DIR__ . '/../..' . '/src/Base/SettingsLink.php',
+        'LHSeznamczAutocomplete\\Base\\Updater' => __DIR__ . '/../..' . '/src/Base/Updater.php',
         'LHSeznamczAutocomplete\\Init' => __DIR__ . '/../..' . '/src/Init.php',
-        'LHSeznamczAutocomplete\\Pages\\Admin' => __DIR__ . '/../..' . '/src/pages/Admin.php',
-        'LHSeznamczAutocomplete\\Pages\\Cf7Panel' => __DIR__ . '/../..' . '/src/pages/Cf7Panel.php',
+        'LHSeznamczAutocomplete\\Pages\\Admin' => __DIR__ . '/../..' . '/src/Pages/Admin.php',
+        'LHSeznamczAutocomplete\\Pages\\Cf7Panel' => __DIR__ . '/../..' . '/src/Pages/Cf7Panel.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

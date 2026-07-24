@@ -15,7 +15,6 @@
         "yahnis-elsts/plugin-update-checker": "^5.7"
     },
     "autoload":{
-        "psr-4":{"LHSeznamczAutocomplete\\" : "./src"},
-        "classmap": ["src/"]
+        "psr-4":{"LHSeznamczAutocomplete\\" : "./src"}
     }
 }

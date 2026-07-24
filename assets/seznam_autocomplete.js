@@ -8,6 +8,12 @@
 (function (window, document) {
     'use strict';
 
+    // Bezpecna lokalni reference na wp_localize_script data - kdyby se skript
+    // nekdy nacetl bez localize dat, dalsi kod nespadne na ReferenceError,
+    // jen pouzije defaulty.
+    const data = (typeof lhSeznamData !== 'undefined' && lhSeznamData) ? lhSeznamData : {};
+    const i18n = data.i18n || {};
+
     /**
      * Navesi naseptavac Mapy.cz na dane pole.
      *
@@ -34,7 +40,7 @@
 
         const placeholder = (options && 'placeholder' in options)
             ? options.placeholder
-            : scriptData.i18n.placeholder;
+            : i18n.placeholder;
 
         const useWrapper = !options || options.wrapper !== false;
 
@@ -42,15 +48,19 @@
             selector: () => inputElem,
             placeHolder: placeholder || undefined,
             wrapper: useWrapper,
-            searchEngine: (query, record) => `<mark>${record}</mark>`,
+            searchEngine: (query, record) => {
+                const div = document.createElement('div');
+                div.textContent = record;
+                return `<mark>${div.innerHTML}</mark>`;
+            },
             data: {
                 keys: ["value"],
                 src: async(query) => {
                     try {
-                        // Zeme jdou z nastaveni pluginu (scriptData.localities). Prazdna
+                        // Zeme jdou z nastaveni pluginu (lhSeznamData.localities). Prazdna
                         // hodnota = bez omezeni, hleda se ve vsech zemich, ktere Mapy.cz maji.
-                        const localities = (scriptData && typeof scriptData.localities === 'string') ? scriptData.localities : 'cz,sk';
-                        let url = `https://api.mapy.cz/v1/suggest?lang=cs&limit=5&type=regional.address&apikey=${scriptData.API_KEY}&query=${encodeURIComponent(query)}`;
+                        const localities = (typeof data.localities === 'string') ? data.localities : 'cz,sk';
+                        let url = `https://api.mapy.cz/v1/suggest?lang=cs&limit=5&type=regional.address&apikey=${encodeURIComponent(data.API_KEY)}&query=${encodeURIComponent(query)}`;
                         if (localities) {
                             url += `&locality=${encodeURIComponent(localities)}`;
                         }
@@ -96,7 +106,7 @@
                         message.setAttribute("class", "no_result");
                         message.style.cssText = "padding: 5px";
                         const span = document.createElement("span");
-                        span.textContent = `${scriptData.i18n.noResults} "${data.query}"`;
+                        span.textContent = `${i18n.noResults || ''} "${data.query}"`;
                         message.appendChild(span);
                         list.prepend(message);
                     } else {
@@ -105,7 +115,7 @@
                         const img = new Image();
 
                         logoHolder.style.cssText = "padding: 5px; display: flex; align-items: center; justify-content: end; gap: 5px; font-size: 12px;";
-                        text.textContent = scriptData.i18n.poweredBy;
+                        text.textContent = i18n.poweredBy || '';
                         img.src = "https://api.mapy.cz/img/api/logo-small.svg";
                         img.style.cssText = "width: 60px";
                         logoHolder.append(text, img);
