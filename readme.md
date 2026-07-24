@@ -73,10 +73,10 @@ to tak Mapy.cz mají navržené. Aby ho nemohl někdo zneužít na jiném webu, 
 ho** ve svém účtu na [developer.mapy.com](https://developer.mapy.com/):
 
 - podle **referreru** (HTTP referer) na doménu vašeho webu, nebo
-- podle **IP adresy** serveru,
+- podle **IP adresy** serveru.
 
-případně nastavte denní limit požadavků. Bez omezení může klíč použít kdokoli,
-kdo ho ze stránky opíše, a vyčerpat vám kredit.
+Bez omezení může klíč použít kdokoli, kdo ho ze stránky opíše, a vyčerpat vám
+kredit.
 
 ## Aktualizace
 
