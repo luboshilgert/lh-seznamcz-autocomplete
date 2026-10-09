@@ -16,7 +16,7 @@
  * Plugin Name:       Adresní našeptávač Mapy.com
  * Plugin URI:        https://www.hilgert.cz/
  * Description:       Našeptávač adres z Mapy.com (suggest API) pro WooCommerce a Contact Form 7.
- * Version:           1.3.3
+ * Version:           1.3.4
  * Author:            Lubos Hilgert
  * Author URI:        https://www.hilgert.cz/
  * License:           GPL-2.0+
@@ -29,7 +29,7 @@ if (!defined('WPINC')) {
     die;
 }
 
-define('LH_SEZNAM_VERSION', '1.3.3');
+define('LH_SEZNAM_VERSION', '1.3.4');
 define('LH_SEZNAM_PLUGIN_FILE', __FILE__);
 define('LH_SEZNAM_OPTION_API_KEY', 'lh_seznamcz_api_key');
 define('LH_SEZNAM_OPTION_SETTINGS', 'lh_seznamcz_settings');

@@ -3,7 +3,7 @@
 }
 .autoComplete_wrapper>input{
     width: 100%;
-    font-size: 14px;
+    /* Bez font-size - pismo urcuje sablona; pod 16 px iOS pri fokusu priblizi stranku. */
 }
 .autoComplete_wrapper>ul>li mark{
     color: black;
