@@ -91,7 +91,7 @@ Příklad pro tmavou šablonu:
     --lh-seznam-text: #fff;
     --lh-seznam-border: rgba(255, 255, 255, .4);
     --lh-seznam-hover: rgba(255, 255, 255, .08);
-    --lh-seznam-selected: rgba(255, 255, 255, .16);
+    --lh-seznam-selected: rgba(255, 255, 255, .11);
     --lh-seznam-selected-bar: #ff4d00;
     --lh-seznam-mark: #ff4d00;
     --lh-seznam-logo-filter: invert(1);
