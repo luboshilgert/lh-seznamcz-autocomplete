@@ -77,7 +77,9 @@ CSS proměnnými - stačí nastavit jen ty, které potřebujete:
 | `--lh-seznam-bg` | `#fff` | pozadí seznamu a položek |
 | `--lh-seznam-text` | `#212121` | text položek, hlášky a řádku s logem |
 | `--lh-seznam-border` | `rgba(33, 33, 33, .1)` | rámeček seznamu |
-| `--lh-seznam-hover` | `rgba(123, 123, 123, .1)` | pozadí položky pod myší a vybrané šipkami |
+| `--lh-seznam-hover` | `rgba(123, 123, 123, .1)` | pozadí položky pod myší |
+| `--lh-seznam-selected` | stejné jako `--lh-seznam-hover` | pozadí položky vybrané šipkami |
+| `--lh-seznam-selected-bar` | `transparent` | pruh u levého okraje vybrané položky |
 | `--lh-seznam-mark` | `black` (bloková pokladna `#ff7a7a`) | zvýrazněná shoda s hledaným textem |
 | `--lh-seznam-logo-filter` | `none` | filtr loga Mapy.com - na tmavém pozadí `invert(1)` |
 
@@ -88,7 +90,9 @@ Příklad pro tmavou šablonu:
     --lh-seznam-bg: #1a1a1a;
     --lh-seznam-text: #fff;
     --lh-seznam-border: rgba(255, 255, 255, .4);
-    --lh-seznam-hover: rgba(255, 255, 255, .1);
+    --lh-seznam-hover: rgba(255, 255, 255, .08);
+    --lh-seznam-selected: rgba(255, 255, 255, .16);
+    --lh-seznam-selected-bar: #ff4d00;
     --lh-seznam-mark: #ff4d00;
     --lh-seznam-logo-filter: invert(1);
 }

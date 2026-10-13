@@ -87,7 +87,7 @@
                     const itemData = data.value.data;
                     const desc = document.createElement("div");
 
-                    desc.style.cssText = "overflow: hidden; white-space: nowrap; text-overflow: ellipsis;";
+                    desc.style.cssText = "overflow-wrap: anywhere;";
                     desc.textContent = `${itemData.label}, ${itemData.location}`;
                     item.append(
                             desc,
@@ -104,7 +104,7 @@
                         const message = document.createElement("div");
 
                         message.setAttribute("class", "no_result");
-                        message.style.cssText = "padding: 5px";
+                        message.style.cssText = "padding: 10px 20px";
                         const span = document.createElement("span");
                         span.textContent = `${i18n.noResults || ''} "${data.query}"`;
                         message.appendChild(span);
