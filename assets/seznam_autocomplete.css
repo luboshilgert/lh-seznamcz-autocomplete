@@ -4,6 +4,7 @@
 .autoComplete_wrapper>input{
     width: 100%;
     /* Bez font-size - pismo urcuje sablona; pod 16 px iOS pri fokusu priblizi stranku. */
+    /* Vzhled pole (barva, ramecek, vyska, fokus) urcuje sablona - z knihovniho CSS je vyjmuty. */
 }
 .autoComplete_wrapper>ul>li mark{
     color: black;
