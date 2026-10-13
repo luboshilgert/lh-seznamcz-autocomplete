@@ -1,3 +1,8 @@
+/*
+ * Barvy seznamu navrhu jdou prebit promennymi --lh-seznam-* (viz readme).
+ * Vychozi hodnoty jsou jen fallback ve var(), ne deklarace promenne na prvku -
+ * ta by prebila hodnotu, kterou sablona nastavi treba na :root.
+ */
 .autoComplete_wrapper{
     display: block;
 }
@@ -6,8 +11,22 @@
     /* Bez font-size - pismo urcuje sablona; pod 16 px iOS pri fokusu priblizi stranku. */
     /* Vzhled pole (barva, ramecek, vyska, fokus) urcuje sablona - z knihovniho CSS je vyjmuty. */
 }
+.autoComplete_wrapper>ul{
+    border-color: var(--lh-seznam-border, rgba(33, 33, 33, .1));
+    background-color: var(--lh-seznam-bg, #fff);
+    /* Hlaska "zadne vysledky" a radek s logem nejsou <li> - jinak by zdedily barvu stranky. */
+    color: var(--lh-seznam-text, #212121);
+}
+.autoComplete_wrapper>ul>li{
+    color: var(--lh-seznam-text, #212121);
+    background-color: var(--lh-seznam-bg, #fff);
+}
+.autoComplete_wrapper>ul>li:hover,
+.autoComplete_wrapper>ul>li[aria-selected=true]{
+    background-color: var(--lh-seznam-hover, rgba(123, 123, 123, .1));
+}
 .autoComplete_wrapper>ul>li mark{
-    color: black;
+    color: var(--lh-seznam-mark, black);
 }
 
 /*
@@ -25,9 +44,10 @@ ul.lh-seznam-list{
     overflow-y: auto;
     margin: .25rem 0 0 0;
     padding: 0;
-    border: 1px solid rgba(33, 33, 33, .1);
+    border: 1px solid var(--lh-seznam-border, rgba(33, 33, 33, .1));
     border-radius: 4px;
-    background-color: #fff;
+    background-color: var(--lh-seznam-bg, #fff);
+    color: var(--lh-seznam-text, #212121);
     outline: 0;
     text-align: left;
     white-space: normal;
@@ -38,16 +58,21 @@ ul.lh-seznam-list>li{
     margin: 0;
     list-style: none;
     font-size: 14px;
-    color: #212121;
-    background-color: #fff;
+    color: var(--lh-seznam-text, #212121);
+    background-color: var(--lh-seznam-bg, #fff);
     cursor: pointer;
 }
 ul.lh-seznam-list>li:hover,
 ul.lh-seznam-list>li[aria-selected=true]{
-    background-color: rgba(123, 123, 123, .1);
+    background-color: var(--lh-seznam-hover, rgba(123, 123, 123, .1));
 }
 ul.lh-seznam-list>li mark{
     background-color: transparent;
-    color: #ff7a7a;
+    color: var(--lh-seznam-mark, #ff7a7a);
     font-weight: 700;
+}
+
+/* Logo Mapy.com je cernobile - na tmavem podkladu ho sablona otoci pres invert(1). */
+.lh-seznam-logo img{
+    filter: var(--lh-seznam-logo-filter, none);
 }

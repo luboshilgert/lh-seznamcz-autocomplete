@@ -28,7 +28,8 @@ class Enqueue extends BaseController {
 
         wp_register_script('lh-seznam-autocomplete-js', $this->plugin_url . 'assets/autoComplete.min.js', [], LH_SEZNAM_VERSION, true);
         wp_register_style('lh-seznam-autocomplete-css', $this->plugin_url . 'assets/autoComplete.02.min.css', [], LH_SEZNAM_VERSION);
-        wp_register_style('lh-seznam-autocomplete-custom-css', $this->plugin_url . 'assets/seznam_autocomplete.css', [], LH_SEZNAM_VERSION);
+        // Nase pravidla prebijaji knihovni se stejnou specificitou - musi se nacist az po nich.
+        wp_register_style('lh-seznam-autocomplete-custom-css', $this->plugin_url . 'assets/seznam_autocomplete.css', ['lh-seznam-autocomplete-css'], LH_SEZNAM_VERSION);
 
         wp_register_script('lh-seznam-autocomplete', $this->plugin_url . 'assets/seznam_autocomplete.js', array('lh-seznam-autocomplete-js'), LH_SEZNAM_VERSION, true);
         wp_localize_script('lh-seznam-autocomplete', 'lhSeznamData', array(

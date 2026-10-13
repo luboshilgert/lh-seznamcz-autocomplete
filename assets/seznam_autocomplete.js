@@ -114,6 +114,7 @@
                         const text = document.createElement("span");
                         const img = new Image();
 
+                        logoHolder.className = "lh-seznam-logo";
                         logoHolder.style.cssText = "padding: 5px; display: flex; align-items: center; justify-content: end; gap: 5px; font-size: 12px;";
                         text.textContent = i18n.poweredBy || '';
                         img.src = "https://api.mapy.cz/img/api/logo-small.svg";

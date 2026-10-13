@@ -66,6 +66,36 @@ Do pole země se zapisuje:
 V blokové pokladně se adresa zapisuje do datového storu WooCommerce
 (`wc/store/cart`), takže se rovnou přepočte i doprava.
 
+## Vzhled
+
+Vzhled adresního pole (barvu, rámeček, výšku, písmo) určuje šablona webu, plugin
+ho nestyluje. Seznam návrhů má světlé výchozí barvy, které jde v šabloně přebít
+CSS proměnnými - stačí nastavit jen ty, které potřebujete:
+
+| Proměnná | Výchozí hodnota | Co ovlivňuje |
+| --- | --- | --- |
+| `--lh-seznam-bg` | `#fff` | pozadí seznamu a položek |
+| `--lh-seznam-text` | `#212121` | text položek, hlášky a řádku s logem |
+| `--lh-seznam-border` | `rgba(33, 33, 33, .1)` | rámeček seznamu |
+| `--lh-seznam-hover` | `rgba(123, 123, 123, .1)` | pozadí položky pod myší a vybrané šipkami |
+| `--lh-seznam-mark` | `black` (bloková pokladna `#ff7a7a`) | zvýrazněná shoda s hledaným textem |
+| `--lh-seznam-logo-filter` | `none` | filtr loga Mapy.com - na tmavém pozadí `invert(1)` |
+
+Příklad pro tmavou šablonu:
+
+```css
+:root {
+    --lh-seznam-bg: #1a1a1a;
+    --lh-seznam-text: #fff;
+    --lh-seznam-border: rgba(255, 255, 255, .4);
+    --lh-seznam-hover: rgba(255, 255, 255, .1);
+    --lh-seznam-mark: #ff4d00;
+    --lh-seznam-logo-filter: invert(1);
+}
+```
+
+Proměnné se nastavují na `:root` nebo na jakéhokoli předka formuláře.
+
 ## Zabezpečení API klíče
 
 API klíč Mapy.cz se používá přímo v prohlížeči, takže je v HTML stránky viditelný -
